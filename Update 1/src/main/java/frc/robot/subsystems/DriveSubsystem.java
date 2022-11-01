@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -39,39 +40,50 @@ public class DriveSubsystem extends SubsystemBase {
     leftFrontMotor.set(ControlMode.Follower, leftBackMotor.getDeviceID());
     rightFrontMotor.set(ControlMode.Follower, rightBackMotor.getDeviceID()); 
 
-    leftFrontMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0,1); 
-    leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-    leftFrontMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
-    leftFrontMotor.configVelocityMeasurementWindow(16);
-    leftFrontMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1,5,10);
+    leftFrontMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+    rightFrontMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+    leftBackMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
+    rightBackMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 10);
 
-    rightFrontMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0,1); 
-    rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-    rightFrontMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
-    rightFrontMotor.configVelocityMeasurementWindow(16);
-    rightFrontMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1,5,10);
+    leftFrontMotor.configNominalOutputForward(0, 10);
+    leftFrontMotor.configNominalOutputReverse(0, 10);
+    leftFrontMotor.configPeakOutputForward(1, 10);
+    leftFrontMotor.configPeakOutputReverse(-1, 10);
+    leftFrontMotor.configNeutralDeadband(0.001, 10);
 
-    leftBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0,1); 
-    leftBackMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-    leftBackMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
-    leftBackMotor.configVelocityMeasurementWindow(16);
-    leftBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1,5,10);
+    rightFrontMotor.configNominalOutputForward(0, 10);
+    rightFrontMotor.configNominalOutputReverse(0, 10);
+    rightFrontMotor.configPeakOutputForward(1, 10);
+    rightFrontMotor.configPeakOutputReverse(-1, 10);
+    rightFrontMotor.configNeutralDeadband(0.001, 10);
 
-    rightBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0,1); 
-    rightBackMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-    rightBackMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
-    rightBackMotor.configVelocityMeasurementWindow(16);
-    rightBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1,5,10);
+    leftBackMotor.configNominalOutputForward(0, 10);
+    leftBackMotor.configNominalOutputReverse(0, 10);
+    leftBackMotor.configPeakOutputForward(1, 10);
+    leftBackMotor.configPeakOutputReverse(-1, 10);
+    leftBackMotor.configNeutralDeadband(0.001, 10);
+
+    rightBackMotor.configNominalOutputForward(0, 10);
+    rightBackMotor.configNominalOutputReverse(0, 10);
+    rightBackMotor.configPeakOutputForward(1, 10);
+    rightBackMotor.configPeakOutputReverse(-1, 10);
+    rightBackMotor.configNeutralDeadband(0.001, 10);
+
+    // Sets how much error is allowed
+    leftFrontMotor.configAllowableClosedloopError(0, 0, 10);
+    leftBackMotor.configAllowableClosedloopError(0, 0, 10);
+    rightFrontMotor.configAllowableClosedloopError(0, 0, 10);
+    rightBackMotor.configAllowableClosedloopError(0, 0, 10);
 
     leftFrontMotor.setNeutralMode(NeutralMode.Coast); 
     rightFrontMotor.setNeutralMode(NeutralMode.Coast);
     leftBackMotor.setNeutralMode(NeutralMode.Coast);
     rightBackMotor.setNeutralMode(NeutralMode.Coast);
     
-    leftFrontMotor.setInverted(false);
-    rightFrontMotor.setInverted(true);
-    leftBackMotor.setInverted(false);
-    rightFrontMotor.setInverted(true);
+    leftFrontMotor.setInverted(true);
+    rightFrontMotor.setInverted(false);
+    leftBackMotor.setInverted(true);
+    rightBackMotor.setInverted(false);
 
     resetEncoders();
   }

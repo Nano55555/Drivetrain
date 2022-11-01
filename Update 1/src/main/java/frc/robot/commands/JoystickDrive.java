@@ -31,23 +31,14 @@ public class JoystickDrive extends CommandBase {
     double throttle= driverController.getLeftY();
     double rotate= driverController.getRightX();
     
-    if((throttle>0 && throttle<2) || (throttle<0 && throttle>-0.25)) {
+    if((throttle>0 && throttle<0.25) || (throttle<0 && throttle>-0.25)) {
       throttle=0; }
-      else {throttle=throttle;}
+      else {throttle=0.25*throttle;}
     if ((rotate>0 && rotate<0.25) || (rotate<0 && rotate>-0.25)) {
       rotate=0;
     }
     rotate= 0.25*rotate;
-    
-    if (driverController.getRightTriggerAxis()>0.25) {
-      throttle=Math.signum(throttle) *0.75;
-    }
-    else if (driverController.getAButton()) {
-      throttle= (throttle*1.1);
-    }
-    else {
-      throttle= (throttle*0.25);
-    }
+
 
     // pass back throttle and rotate to driveSubsystem
     // call drive method in driveSubsystem, throttle and rotate are parameters
@@ -57,8 +48,7 @@ public class JoystickDrive extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // call the drive stop method
-    driveSubsystem.stop();
+
   }
 
 
