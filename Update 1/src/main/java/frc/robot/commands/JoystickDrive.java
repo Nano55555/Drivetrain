@@ -17,6 +17,7 @@ public class JoystickDrive extends CommandBase {
   public JoystickDrive(DriveSubsystem drivetrain) {
     driveSubsystem = drivetrain;
     addRequirements(driveSubsystem);
+    
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -36,7 +37,7 @@ public class JoystickDrive extends CommandBase {
     if ((rotate>0 && rotate<0.25) || (rotate<0 && rotate>-0.25)) {
       rotate=0;
     }
-    rotate= 2*rotate;
+    rotate= 0.25*rotate;
     
     if (driverController.getRightTriggerAxis()>0.25) {
       throttle=Math.signum(throttle) *0.75;
@@ -45,14 +46,21 @@ public class JoystickDrive extends CommandBase {
       throttle= (throttle*1.1);
     }
     else {
-      throttle= (throttle*0.8);
+      throttle= (throttle*0.25);
     }
 
+    // pass back throttle and rotate to driveSubsystem
+    // call drive method in driveSubsystem, throttle and rotate are parameters
+    driveSubsystem.drive(throttle, rotate);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    // call the drive stop method
+    driveSubsystem.stop();
+  }
+
 
   // Returns true when the command should end.
   @Override

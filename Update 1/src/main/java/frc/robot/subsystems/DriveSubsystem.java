@@ -38,18 +38,41 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
     leftFrontMotor.set(ControlMode.Follower, leftBackMotor.getDeviceID());
     rightFrontMotor.set(ControlMode.Follower, rightBackMotor.getDeviceID()); 
-    leftFrontMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0,1);
+
+    leftFrontMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0,1); 
     leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
     leftFrontMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
     leftFrontMotor.configVelocityMeasurementWindow(16);
     leftFrontMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1,5,10);
 
-    leftFrontMotor.setNeutralMode(NeutralMode.Coast);
+    rightFrontMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0,1); 
+    rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    rightFrontMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
+    rightFrontMotor.configVelocityMeasurementWindow(16);
+    rightFrontMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1,5,10);
+
+    leftBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0,1); 
+    leftBackMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    leftBackMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
+    leftBackMotor.configVelocityMeasurementWindow(16);
+    leftBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1,5,10);
+
+    rightBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0,1); 
+    rightBackMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    rightBackMotor.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_10Ms);
+    rightBackMotor.configVelocityMeasurementWindow(16);
+    rightBackMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_12_Feedback1,5,10);
+
+    leftFrontMotor.setNeutralMode(NeutralMode.Coast); 
+    rightFrontMotor.setNeutralMode(NeutralMode.Coast);
+    leftBackMotor.setNeutralMode(NeutralMode.Coast);
+    rightBackMotor.setNeutralMode(NeutralMode.Coast);
     
     leftFrontMotor.setInverted(false);
     rightFrontMotor.setInverted(true);
     leftBackMotor.setInverted(false);
     rightFrontMotor.setInverted(true);
+
     resetEncoders();
   }
   public void resetEncoders() {
